@@ -2,22 +2,6 @@ import UIKit
 
 // MARK: - JSON file -
 
-class MyDictionaryClass {
-    var id: String?
-    var active: Bool?
-    var type: String?
-    
-    var requirement: [String: Any]?
-    var limitation: [String: Any]?
-    var reward: [String: Any]?
-    var links: [Any]?
-    var metadata: [String: Any]?
-    
-    var created_at: String?
-    var created_by: String?
-    var updated_at: String?
-}
-
 //{
 //        "id": "f3c2844c-ddfd-49fb-bd8b-8210fe1745f6", ✅
 //        "active": true, ✅
@@ -68,7 +52,7 @@ let myDict: [String: Any] = [
     "updated_at": "2020-10-23T10:52:52.134Z"
 ]
 
-print(myDict)
+//print(myDict)
 
 
 // MARK: - Converted to using separate Dictonaries and joined to one -
@@ -101,6 +85,124 @@ var rewardDict = [String: Any]()
 rewardDict["type"] = "discount_item_percent"
 rewardDict["value"] = 50
 
-print(myDict)
+//print(myDict)
 
 
+// MARK: - Create a class with JSON object -
+
+class MyError: Error {
+    
+}
+
+class MyDictionaryClass {
+    
+    //MARK: Properties
+    
+    let id: String
+    let active: Bool
+    let type: String
+    
+    let requirement: [String: Any]
+    let limitation: [String: Any]
+    let reward: [String: Any]
+    let links: [Any]
+    let metadata: [String: Any]
+    
+    let created_at: String
+    let created_by: String
+    let updated_at: String
+    
+    //MARK: Init
+    
+    init(id: String,
+         active: Bool,
+         type: String,
+         requirement: [String: Any],
+         limitation: [String: Any],
+         reward: [String: Any],
+         links: [Any],
+         metadata: [String: Any],
+         created_at: String,
+         created_by: String,
+         updated_at: String
+    ) {
+        self.id = id
+        self.active = active
+        self.type = type
+        self.requirement = requirement
+        self.limitation = limitation
+        self.reward = reward
+        self.links = links
+        self.metadata = metadata
+        self.created_at = created_at
+        self.created_by = created_by
+        self.updated_at = updated_at
+        
+    }
+    
+    init(jsonDictionary: [String: Any]) throws {
+        guard
+            let id = jsonDictionary["id"] as? String,
+            let active = jsonDictionary["active"] as? Bool,
+            let type = jsonDictionary["type"] as? String,
+            let requirement = jsonDictionary["requirement"] as? [String: Any],
+            let limitation = jsonDictionary["limitation"] as? [String: Any],
+            let reward = jsonDictionary["reward"] as? [String: Any],
+            let links = jsonDictionary["links"] as? [Any],
+            let metadata = jsonDictionary["metadata"] as? [String: Any],
+            let created_at = jsonDictionary["created_at"] as? String,
+            let created_by = jsonDictionary[Key.created_by.getString()] as? String,
+            let updated_at = jsonDictionary["updated_at"] as? String
+        else {
+            throw MyError()
+        }
+        self.id = id
+        self.active = active
+        self.type = type
+        self.requirement = requirement
+        self.limitation = limitation
+        self.reward = reward
+        self.links = links
+        self.metadata = metadata
+        self.created_at = created_at
+        self.created_by = created_by
+        self.updated_at = updated_at
+    }
+    
+    // MARK: Public
+    
+    func printInstances() {
+        print(id)
+        print(active)
+        print(type)
+        print(requirement)
+        print(limitation)
+        print(reward)
+        print(links)
+        print(metadata)
+        print(created_at)
+        print(created_by)
+        print(updated_at)
+    }
+}
+
+//let myClass = MyDictionaryClass(id: myDict["id"] as! String,
+//                                active: myDict["active"] as! Bool,
+//                                type: myDict["type"] as! String,
+//                                requirement: myDict["requirement"] as! [String: Any],
+//                                limitation: myDict["limitation"] as! [String: Any],
+//                                reward: myDict["reward"] as! [String : Any],
+//                                links: myDict["links"] as! [Any],
+//                                metadata: myDict["metadata"] as! [String: Any],
+//                                created_at: myDict["created_at"] as! String,
+//                                created_by: myDict["created_by"] as! String,
+//                                updated_at: myDict["updated_at"] as! String)
+
+//myClass.printInstances()
+
+do {
+    let anotherClass = try MyDictionaryClass(jsonDictionary: myDict)
+    anotherClass.printInstances()
+} catch {
+    print("Failed to create MyDictionaryClass instance")
+}
