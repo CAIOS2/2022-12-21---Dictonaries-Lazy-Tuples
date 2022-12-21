@@ -2,6 +2,22 @@ import UIKit
 
 // MARK: - JSON file -
 
+class MyDictionaryClass {
+    var id: String?
+    var active: Bool?
+    var type: String?
+    
+    var requirement: [String: Any]?
+    var limitation: [String: Any]?
+    var reward: [String: Any]?
+    var links: [Any]?
+    var metadata: [String: Any]?
+    
+    var created_at: String?
+    var created_by: String?
+    var updated_at: String?
+}
+
 //{
 //        "id": "f3c2844c-ddfd-49fb-bd8b-8210fe1745f6", ✅
 //        "active": true, ✅
@@ -52,7 +68,6 @@ let myDict: [String: Any] = [
     "updated_at": "2020-10-23T10:52:52.134Z"
 ]
 
-
 print(myDict)
 
 
@@ -87,3 +102,5 @@ rewardDict["type"] = "discount_item_percent"
 rewardDict["value"] = 50
 
 print(myDict)
+
+
