@@ -1,5 +1,15 @@
 import UIKit
 
+// MARK: - Keys enum -
+
+enum Key: String {
+    case created_by
+    
+    func getString() -> String {
+        return self.rawValue
+    }
+}
+
 // MARK: - JSON file -
 
 //{
@@ -48,7 +58,7 @@ let myDict: [String: Any] = [
     "links": [],
     "metadata": [:],
     "created_at": "2020-10-23T10:52:52.134Z",
-    "created_by": "cb8e777e-106f-4a3d-b75f-d1a73d37e5f3",
+    Key.created_by.getString(): "cb8e777e-106f-4a3d-b75f-d1a73d37e5f3",
     "updated_at": "2020-10-23T10:52:52.134Z"
 ]
 
@@ -67,7 +77,7 @@ mainDict["limitation"] = [:]
 mainDict["links"] = []
 mainDict["metadata"] = [:]
 mainDict["created_at"] = "2020-10-23T10:52:52.134Z"
-mainDict["created_by"] = "cb8e777e-106f-4a3d-b75f-d1a73d37e5f3"
+mainDict[Key.created_by.getString()] = "cb8e777e-106f-4a3d-b75f-d1a73d37e5f3"
 mainDict["updated_at"] = "2020-10-23T10:52:52.134Z"
 
 let itemDict = ["id": "6256d1a0-c112-d64f-06e1-9e0b5917d9d8"]
